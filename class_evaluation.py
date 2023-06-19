@@ -5,6 +5,7 @@ from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.support.select import Select
 from time import sleep
 
+
 WEEK_DAYS = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat"]
 
 
@@ -39,8 +40,27 @@ def get_course_numbers(driver, semester):
     return list(dict.fromkeys(course_number_list))
 
 
-def class_evaluation(course_number_list):
-    pass
+def class_evaluation(driver, course_number_list):
+    for course_number in course_number_list:
+        driver.get("https://moodle.el.okayama-u.ac.jp/course/view.php?idnumber={}".format(course_number))
+        try:
+            driver.find_element(By.CSS_SELECTOR, ".continuebutton button").click()
+        except:
+            pass
+        sleep(5)
+        try:
+            driver.find_element(By.CSS_SELECTOR, "#page-course-view-tiles  div.modal-footer > button.btn.btn-primary").click()        
+            sleep(5)
+        except:
+            pass
+        try:
+            element = driver.find_element(by=By.XPATH, value='//a[contains(., "授業評価アンケート")]')
+            url = str(element.get_attribute('href'))
+            driver.get(url)
+            driver.find_element(By.CSS_SELECTOR, "#section-0 .ouquestionnr a").click()
+        except:
+            pass
+        sleep(5)
 
 
 def main():
@@ -48,6 +68,7 @@ def main():
 
     okadai_id = input("岡大IDを入力してください。\n")
     password = getpass("パスワードを入力してください。(入力中のパスワードは表示されません)\n")
+
     # 授業の学期を入力
     semester = input("学期を半角数字で入力してください。(例:1学期→1)\n")
     # 授業のコース番号を入力
@@ -59,6 +80,7 @@ def main():
     login(driver, okadai_id, password)  # ログイン
     course_number_list = get_course_numbers(driver, semester)
     print(course_number_list)
+    class_evaluation(driver, course_number_list)
 
 
 if __name__ == "__main__":
