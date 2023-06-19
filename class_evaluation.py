@@ -6,7 +6,7 @@ from selenium.webdriver.support.select import Select
 from time import sleep
 
 WEEK_DAYS = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat"]
-driver = webdriver.Chrome()
+
 
 def login(driver, okadai_id, password):
     element = driver.find_element(By.ID, "username_input")
@@ -18,7 +18,8 @@ def login(driver, okadai_id, password):
     element.send_keys(Keys.ENTER)
     sleep(1)
 
-def get_course_numbers(semester):
+
+def get_course_numbers(driver, semester):
     course_number_list = []
     WEEK_DAYS = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat"]
     driver.find_element(By.CSS_SELECTOR, "#ctl00_bhHeader_ctl18_lnk").click()
@@ -37,6 +38,7 @@ def get_course_numbers(semester):
                 pass
     return list(dict.fromkeys(course_number_list))
 
+
 def class_evaluation(course_number_list):
     pass
 
@@ -50,11 +52,13 @@ def main():
     semester = input("学期を半角数字で入力してください。(例:1学期→1)\n")
     # 授業のコース番号を入力
     course_number_list = []
-    
+    driver = webdriver.Chrome()
+
     driver.get("https://kyomu.adm.okayama-u.ac.jp/Portal/RichTimeOut.aspx")
     driver.find_element(By.ID, "error_lnkLogin_lnk").click()
     login(driver, okadai_id, password)  # ログイン
-    course_number_list = get_course_numbers(semester)
+    course_number_list = get_course_numbers(driver, semester)
+    print(course_number_list)
 
 
 if __name__ == "__main__":
