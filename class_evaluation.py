@@ -7,14 +7,18 @@ from time import sleep
 
 
 def login(driver, okadai_id, password):
-    element = driver.find_element(By.ID, "username_input")
-    element.send_keys(okadai_id)
-    element.send_keys(Keys.ENTER)
-    sleep(1)
-    element = driver.find_element(By.ID, "password_input")
-    element.send_keys(password)
-    element.send_keys(Keys.ENTER)
-    sleep(1)
+    try:
+        element = driver.find_element(By.ID, "username_input")
+        element.send_keys(okadai_id)
+        element.send_keys(Keys.ENTER)
+        sleep(1)
+        element = driver.find_element(By.ID, "password_input")
+        element.send_keys(password)
+        element.send_keys(Keys.ENTER)
+        sleep(1)
+        return 0
+    except:
+        return -1
 
 
 def get_course_numbers(driver, semester):
@@ -46,7 +50,7 @@ def class_evaluation(driver, course_number_list):
             pass
         sleep(5)
         try:
-            driver.find_element(By.CSS_SELECTOR, "#page-course-view-tiles  div.modal-footer > button.btn.btn-primary").click()        
+            driver.find_element(By.CSS_SELECTOR, "#page-course-view-tiles  div.modal-footer > button.btn.btn-primary").click()
             sleep(5)
         except:
             pass
@@ -65,7 +69,6 @@ def main():
 
     okadai_id = input("岡大IDを入力してください。\n")
     password = getpass("パスワードを入力してください。(入力中のパスワードは表示されません)\n")
-
     # 授業の学期を入力
     semester = input("学期を半角数字で入力してください。(例:1学期→1)\n")
     # 授業のコース番号を入力
@@ -74,7 +77,11 @@ def main():
 
     driver.get("https://kyomu.adm.okayama-u.ac.jp/Portal/RichTimeOut.aspx")
     driver.find_element(By.ID, "error_lnkLogin_lnk").click()
-    login(driver, okadai_id, password)  # ログイン
+    if login(driver, okadai_id, password) == -1:
+        print("ログインに失敗しました。入力された岡大IDまたはパスワードに誤りがあります。")
+        driver.quit()
+    else:
+        print("ログインに成功しました。")
     course_number_list = get_course_numbers(driver, semester)
     print(course_number_list)
     class_evaluation(driver, course_number_list)
