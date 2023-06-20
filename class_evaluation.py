@@ -6,9 +6,6 @@ from selenium.webdriver.support.select import Select
 from time import sleep
 
 
-WEEK_DAYS = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat"]
-
-
 def login(driver, okadai_id, password):
     element = driver.find_element(By.ID, "username_input")
     element.send_keys(okadai_id)
