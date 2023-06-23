@@ -1,5 +1,6 @@
 from getpass import getpass
 from selenium import webdriver
+from webdriver_manager.chrome import ChromeDriverManager
 from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.support.select import Select
@@ -73,7 +74,7 @@ def main():
     semester = input("学期を半角数字で入力してください。(例:1学期→1)\n")
     # 授業のコース番号を入力
     course_number_list = []
-    driver = webdriver.Chrome()
+    driver = webdriver.Chrome(ChromeDriverManager().install())
 
     driver.get("https://kyomu.adm.okayama-u.ac.jp/Portal/RichTimeOut.aspx")
     driver.find_element(By.ID, "error_lnkLogin_lnk").click()
