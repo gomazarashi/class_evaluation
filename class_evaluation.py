@@ -84,7 +84,6 @@ def main():
     else:
         print("ログインに成功しました。")
     course_number_list = get_course_numbers(driver, semester)
-    print(course_number_list)
     class_evaluation(driver, course_number_list)
 
 
