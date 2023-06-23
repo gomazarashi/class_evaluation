@@ -12,17 +12,11 @@
 (準備中)
 
 ## インストール
-[github](https://github.com/gomazarashi/class_evaluation)からcloneするか、zipファイルをダウンロードしてください。使用には`selenium`が必要であるため、以下のコマンドでインストールしてください。
-```
-pip install selenium
-```
-また、`Chrome Driver`をダウンロードし、`class_evaluation.py`と同じディレクトリに配置するか、環境変数PATHに追加してください。
+[github](https://github.com/gomazarashi/class_evaluation)からcloneするか、zipファイルをダウンロードしてください。
+
 
 ## 使い方
-cmdなどでclass_evaluation.pyを以下のように実行します。
-```
-python class_evaluation.py
-```
+cmdなどでclass_evaluation.exeを実行してください。
 その後、指示に従って岡大ID、パスワードおよび対象の授業の学期を半角数字で入力し、エンターキーを押すと自動で授業評価アンケートへの回答が行われます。
 
 ## 開発に参加する
