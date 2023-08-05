@@ -63,6 +63,31 @@ def class_evaluation(driver, course_number_list):
         except:
             pass
         sleep(5)
+        try:
+            # 授業評価アンケートのページを開く
+            driver.find_element(By.CSS_SELECTOR, "#region-main > div:nth-child(2) > div.box.py-3.generalbox.boxaligncenter.boxwidthwide > a").click()
+        except:
+            pass
+
+        try:
+            # 授業評価アンケートのラジオボタンをクリック
+            driver.find_element(By.CSS_SELECTOR, "#auto-rb0001").click()
+            driver.find_element(By.CSS_SELECTOR, "#auto-rb0004").click()
+            driver.find_element(By.CSS_SELECTOR, "#auto-rb0007").click()
+            driver.find_element(By.CSS_SELECTOR, "#auto-rb0010").click()
+            driver.find_element(By.CSS_SELECTOR, "#auto-rb0013").click()
+            driver.find_element(By.CSS_SELECTOR, "#auto-rb0016").click()
+            driver.find_element(By.CSS_SELECTOR, "#auto-rb0019").click()
+            driver.find_element(By.CSS_SELECTOR, "#auto-rb0022").click()
+            driver.find_element(By.CSS_SELECTOR, "#auto-rb0025").click()
+            driver.find_element(
+                By.CSS_SELECTOR, "#phpesp_response > fieldset:nth-child(14) > div > div.qn-answer > table > tbody > tr.raterow > td:nth-child(6) > input").click()
+            driver.find_element(
+                By.CSS_SELECTOR, "#phpesp_response > fieldset:nth-child(15) > div > div.qn-answer > table > tbody > tr.raterow > td:nth-child(6) > input").click()
+            sleep(5)
+            driver.find_element(By.CSS_SELECTOR, "#phpesp_response > div.notice > div > div > input[type=submit]:nth-child(2)").click()
+        except:
+            pass
 
 
 def main():
@@ -85,6 +110,8 @@ def main():
         print("ログインに成功しました。")
     course_number_list = get_course_numbers(driver, semester)
     class_evaluation(driver, course_number_list)
+    driver.quit()
+    print("授業評価アンケートの回答が完了しました。")
 
 
 if __name__ == "__main__":
