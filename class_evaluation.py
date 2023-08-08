@@ -103,7 +103,7 @@ def main():
     semester = input("学期を半角数字で入力してください。(例:1学期→1)\n")
     # 授業のコース番号を入力
     course_number_list = []
-    
+
     if version.parse(webdriver.__version__) < version.parse("4.6.0"):
         driver = webdriver.Chrome(ChromeDriverManager().install())
     else:
