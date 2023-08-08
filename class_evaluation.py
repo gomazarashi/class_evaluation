@@ -18,7 +18,10 @@ def login(driver, okadai_id, password):
         element.send_keys(password)
         element.send_keys(Keys.ENTER)
         sleep(1)
-        return 0
+        if driver.find_elements(By.CLASS_NAME, "error"):
+            return -1
+        else:
+            return 0
     except:
         return -1
 
@@ -111,6 +114,7 @@ def main():
     if login(driver, okadai_id, password) == -1:
         print("ログインに失敗しました。入力された岡大IDまたはパスワードに誤りがあります。")
         driver.quit()
+        return
     else:
         print("ログインに成功しました。")
     course_number_list = get_course_numbers(driver, semester)
